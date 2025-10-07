@@ -2,26 +2,25 @@ from collections import defaultdict
 
 class Topological(object):
 
-    def __init__(self, graph):
+    def __init__(self, graph, vertices):
         self.graph = graph
+        self.V = vertices
 
     def calculateIndegrees(self):
-        indegrees = defaultdict(lambda: -1)
-        zeroes = []
+        indegrees = defaultdict(lambda: 0)
         for key, val in self.graph.items():
-            indegrees[key]+=1
             for node in val:
                 indegrees[node]+=1
-        for key, val in indegrees.items():
-            if val == 0:
-                zeroes.append(key)
-        return indegrees, zeroes
+        return indegrees
 
     def topologicalSort(self):
-        queue, visited, result = [], [], []
-        indegrees, zeroes = self.calculateIndegrees()
-        for node in zeroes:
-            queue.append(node)
+        visited, result = [], []
+        queue = [i for i in range(self.V)]
+        indegrees = self.calculateIndegrees()
+
+        for val in queue:
+            if val in indegrees.keys():
+                queue.remove(val)
 
         while queue != []:
             curr = queue.pop(0)
@@ -35,5 +34,8 @@ class Topological(object):
                 visited.append(curr)
                 result.append(curr)
 
-        # TODO detect a cycle
+        if self.V != len(result):
+            print("Cycle present! No solutions")
+            return -1
+
         return result
