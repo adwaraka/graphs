@@ -2,6 +2,7 @@ from collections import defaultdict
 from breadthfs import BFS
 from depthfs import DFS
 from topological import Topological
+from reverseGraph import ReverseGraph
 
 class Graph(object):
     def __init__(self):
@@ -54,5 +55,16 @@ def main():
     graphCycle.addEdge(2, 0)
     tc2 = Topological(graphCycle.returnGraph(), vertices2)
     print(tc2.topologicalSort())
+
+    rgraph = Graph()
+    rgraph.addEdge(5, 2)
+    rgraph.addEdge(5, 0)
+    rgraph.addEdge(4, 0)
+    rgraph.addEdge(4, 1)
+    rgraph.addEdge(2, 3)
+    rgraph.addEdge(3, 1)
+    rgraph.displayGraph()
+    reverse = ReverseGraph(rgraph.returnGraph())
+    print(reverse.reverseGraph())
 
 main()
