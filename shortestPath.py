@@ -1,7 +1,4 @@
 def spUnweighted(graph, start, end):
-    if start not in graph or end not in graph:
-        return None
-
     # Store (currentNode, path_to_currentNode)
     queue = [(start, [start])]
     visited = {start}
